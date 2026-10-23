@@ -1,0 +1,622 @@
+/*
+  Layout system: every section sits on the 12-column .grid with one gap.
+  Heading column = cols 1–4, content column = cols 5–12, so section edges
+  line up on columns 1, 5 and 9 from hero to footer.
+*/
+
+.colHead {
+  grid-column: 1 / span 4;
+}
+
+.colBody {
+  grid-column: 5 / -1;
+}
+
+/* Shared type */
+.h2 {
+  font-size: var(--fs-h2);
+}
+
+.h3 {
+  font-size: var(--fs-h3);
+  line-height: 1.1;
+}
+
+.label {
+  font-size: var(--fs-ui);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: var(--space-m);
+}
+
+.mediaWide,
+.mediaTall,
+.visitMedia,
+.band,
+.heroMedia {
+  position: relative;
+  overflow: hidden;
+  background: var(--cream);
+}
+
+.mediaWide img,
+.mediaTall img,
+.visitMedia img,
+.band img,
+.heroMedia img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Hero: fills exactly one screen on desktop, so the next section starts at the fold. */
+.hero {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+  padding-top: var(--header-h);
+}
+
+.heroGrid {
+  flex: 1;
+  padding-block: var(--space-m);
+}
+
+.heroCopy {
+  grid-column: 1 / span 8;
+  container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-m);
+}
+
+/* Ink of "ERA" is 2.555em wide and starts 0.08em in; this fills the column edge to edge. */
+.wordmark {
+  display: flex;
+  overflow: hidden;
+  margin: -0.035em 0 0 -0.08em;
+  font-size: calc(100cqi / 2.562);
+  letter-spacing: -0.045em;
+  line-height: 0.82;
+}
+
+.wordmark > span {
+  display: block;
+}
+
+.heroSub {
+  font-family: var(--display);
+  font-stretch: 125%;
+  font-weight: 700;
+  font-size: var(--fs-h3);
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+
+.heroText {
+  max-width: 36ch;
+  margin-top: var(--space-s);
+  color: var(--muted);
+  font-size: 1.0625rem;
+}
+
+/* Takes its height from the copy column, so photo and copy always end
+   together at any screen width (no empty band under the wordmark). */
+.heroMedia {
+  grid-column: 9 / -1;
+  align-self: stretch;
+  min-height: 24rem;
+}
+
+/* Studio */
+.studio {
+  padding-block: var(--section);
+}
+
+.lead {
+  max-width: 32ch;
+  font-size: var(--fs-lead);
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+}
+
+/* The portrait sets the row height; the wide photo stretches to match,
+   so both share top and bottom edges. */
+.mediaTall,
+.mediaWide {
+  margin-top: var(--space-l);
+}
+
+.mediaTall {
+  grid-column: 1 / span 4;
+  align-self: start;
+  aspect-ratio: 2 / 3;
+}
+
+.mediaWide {
+  grid-column: 5 / -1;
+  align-self: stretch;
+}
+
+.themes {
+  margin-top: var(--space-l);
+  border-bottom: 1px solid var(--line);
+}
+
+.theme {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--col-gap);
+  row-gap: var(--space-s);
+  padding-block: var(--space-m);
+  border-top: 1px solid var(--line);
+}
+
+.theme:first-child {
+  border-top-color: var(--ink);
+}
+
+.theme h3 {
+  grid-column: 1 / span 4;
+}
+
+.theme p {
+  grid-column: 5 / span 6;
+  max-width: 60ch;
+  color: var(--muted);
+}
+
+/* Full-bleed band */
+.band {
+  width: 100%;
+  aspect-ratio: 21 / 9;
+  max-height: 88svh;
+}
+
+/* Packages */
+.packages {
+  padding-block: var(--section);
+  background: var(--white);
+}
+
+.packagesHead {
+  align-self: start;
+  position: sticky;
+  top: calc(var(--header-h) + var(--space-m));
+}
+
+.note {
+  max-width: 34ch;
+  margin-top: var(--space-m);
+  color: var(--muted);
+  font-size: var(--fs-small);
+}
+
+.groups {
+  display: grid;
+  gap: calc(var(--space-m) * 1.5);
+}
+
+.groups h3 {
+  padding-bottom: var(--space-s);
+  border-bottom: 1px solid var(--ink);
+}
+
+/* Rows sit on an 8-column subdivision of the content column. */
+.row {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  column-gap: var(--col-gap);
+  align-items: center;
+  min-height: 4.5rem;
+  padding-block: 0.75rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.rowName {
+  grid-column: 1 / span 3;
+  font-size: var(--fs-price);
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+
+.rowDetail {
+  grid-column: 4 / span 2;
+  color: var(--muted);
+  font-size: var(--fs-small);
+}
+
+.rowPrice {
+  grid-column: 6 / span 2;
+  font-family: var(--display);
+  font-size: var(--fs-price);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.rowAction {
+  grid-column: 8;
+  width: 100%;
+}
+
+.rowUnavailable {
+  color: var(--muted);
+  font-size: 0.75rem;
+  line-height: 1.3;
+  text-align: right;
+}
+
+/* Book: opens the cream block shared with Visit; the booking panel is a white card on it. */
+.book {
+  padding-block: var(--section);
+  background: var(--cream);
+}
+
+.bookHead {
+  align-self: start;
+}
+
+.bookFrame {
+  position: relative;
+  border: 1px solid var(--line);
+  background: var(--white);
+}
+
+/* Shown until Momence paints over it */
+.bookFrame::before {
+  content: "Loading booking…";
+  position: absolute;
+  top: 2rem;
+  left: 0;
+  right: 0;
+  color: var(--muted);
+  font-size: var(--fs-small);
+  text-align: center;
+}
+
+/* Height follows Momence's resize messages (components/BookingFrame.js). */
+.bookFrame iframe {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 640px;
+  border: 0;
+}
+
+/* Visit + footer are sized to fit one screen together on desktop. */
+.visit {
+  padding-bottom: var(--section);
+  background: var(--cream);
+}
+
+/* Hairline between Book and Visit inside the shared cream block (spans cols 1–12 only) */
+.visitGrid::before {
+  content: "";
+  grid-column: 1 / -1;
+  margin-bottom: var(--section);
+  border-top: 1px solid var(--line);
+}
+
+/* Stretches to the copy height so photo and buttons share top and bottom edges. */
+.visitMedia {
+  grid-column: 1 / span 4;
+  min-height: 18rem;
+}
+
+.visitMedia img {
+  object-position: 50% 30% !important;
+}
+
+.visitCopy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-m);
+}
+
+.visitIntro {
+  max-width: 44ch;
+  margin-top: var(--space-s);
+  font-size: 1.0625rem;
+}
+
+/* 2 × 2 details: the second column starts on page column 9, under the hero photo. */
+.facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: var(--col-gap);
+  border-top: 1px solid var(--ink);
+}
+
+.facts > div {
+  display: grid;
+  gap: 0.35rem;
+  padding-block: 0.9rem;
+  border-bottom: 1px solid var(--line);
+}
+
+/* Footer: one compact row, then the legal line */
+.footer {
+  padding-block: var(--space-m);
+  background: var(--ink-deep);
+  color: var(--paper);
+}
+
+.footerGrid {
+  row-gap: var(--space-m);
+  align-items: end;
+}
+
+.footerMark {
+  grid-column: 1 / span 4;
+  justify-self: start;
+  margin-left: -0.08em;
+  font-size: clamp(3rem, 2rem + 3vw, 5rem);
+  letter-spacing: -0.045em;
+  line-height: 0.75;
+  text-decoration: none;
+}
+
+.footerNav {
+  grid-column: 5 / -1;
+  justify-self: end;
+}
+
+.footerNav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 2rem;
+}
+
+.footerNav a {
+  display: inline-block;
+  padding-block: 0.6rem;
+  font-size: var(--fs-ui);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: linear-gradient(currentColor, currentColor) 0 calc(100% - 0.45rem) / 0 1px no-repeat;
+  transition: background-size 0.4s var(--ease);
+}
+
+@media (hover: hover) {
+  .footerNav a:hover {
+    background-size: 100% 1px;
+  }
+}
+
+.footerSmall {
+  grid-column: 1 / -1;
+  padding-top: var(--space-s);
+  border-top: 1px solid var(--line-light);
+  color: rgba(245, 245, 243, 0.6);
+  font-size: var(--fs-ui);
+}
+
+.footer :focus-visible {
+  outline-color: var(--paper);
+}
+
+/* Small desktop / large tablet: stack section heads above content */
+@media (max-width: 1100px) {
+  .studioGrid > .colHead,
+  .studioGrid > .colBody,
+  .packagesGrid > .colHead,
+  .packagesGrid > .colBody,
+  .bookGrid > .colHead,
+  .bookGrid > .colBody {
+    grid-column: 1 / -1;
+  }
+
+  .studioGrid > .colBody {
+    margin-top: var(--space-m);
+  }
+
+  .packagesHead,
+  .bookHead {
+    position: static;
+    margin-bottom: var(--space-m);
+  }
+
+  .note {
+    margin-top: var(--space-s);
+  }
+}
+
+/* Tablet portrait and mobile: single column */
+@media (max-width: 860px) {
+  .heroGrid {
+    row-gap: var(--space-m);
+    padding-bottom: 0;
+  }
+
+  .heroCopy,
+  .heroMedia {
+    grid-column: 1 / -1;
+  }
+
+  .heroMedia {
+    aspect-ratio: 4 / 5;
+    max-height: 80svh;
+    margin-inline: calc(var(--gutter) * -1);
+  }
+
+  /* Portrait pair, equal widths and heights */
+  .mediaTall {
+    grid-column: 1 / span 6;
+  }
+
+  .mediaWide {
+    grid-column: 7 / -1;
+    align-self: start;
+    aspect-ratio: 2 / 3;
+  }
+
+  .bookFrame {
+    margin-inline: calc(var(--gutter) * -1);
+    border-inline: 0;
+  }
+
+  .bookFrame iframe {
+    height: 700px;
+  }
+
+  .mediaWide img {
+    object-position: 42% 50% !important;
+  }
+
+  .theme h3,
+  .theme p {
+    grid-column: 1 / -1;
+  }
+
+  .band {
+    aspect-ratio: 4 / 3;
+  }
+
+  .visitMedia,
+  .visitGrid > .colBody {
+    grid-column: 1 / -1;
+  }
+
+  .visitMedia {
+    min-height: 0;
+    aspect-ratio: 4 / 3;
+    margin-bottom: var(--space-m);
+  }
+
+  .footerMark,
+  .footerNav {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+
+  /* Page sections in the first column, outbound links in the second. */
+  .footerNav ul {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(3, auto);
+    grid-auto-flow: column;
+    column-gap: var(--col-gap);
+  }
+
+  .footerNav {
+    justify-self: stretch;
+  }
+}
+
+@media (max-width: 560px) {
+  .row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: auto auto auto;
+    row-gap: 0.2rem;
+    column-gap: var(--space-s);
+    padding-block: 1rem;
+  }
+
+  .rowName,
+  .rowDetail,
+  .rowPrice {
+    grid-column: 1;
+  }
+
+  .rowPrice {
+    margin-top: 0.3rem;
+    text-align: left;
+  }
+
+  .rowAction {
+    grid-column: 2;
+    grid-row: 1 / span 3;
+    width: 5.5rem;
+  }
+
+  .rowUnavailable {
+    width: 6.5rem;
+  }
+
+  .actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .actions > a {
+    padding-inline: 0.75rem;
+    letter-spacing: 0.08em;
+  }
+}
+
+@media (max-width: 360px) {
+  .actions {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .facts {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Short desktop screens (e.g. 1366×650 laptops): keep Visit + footer on one screen. */
+@media (min-width: 861px) and (max-height: 760px) {
+  .visit {
+    padding-bottom: var(--space-m);
+  }
+
+  .visitGrid::before {
+    margin-bottom: var(--space-m);
+  }
+
+  .facts > div {
+    padding-block: 0.6rem;
+  }
+
+  .footer {
+    padding-block: var(--space-s);
+  }
+
+  .footerGrid {
+    row-gap: var(--space-s);
+  }
+}
+
+/*
+  Desktop: Visit + footer fill exactly one screen. Visit takes the screen height
+  minus the footer (--footer-h, set by components/FooterHeight.js), clears the
+  fixed header, and its photo stretches to use the extra height.
+*/
+@media (min-width: 861px) {
+  .visit {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100svh - var(--footer-h, 13.5rem));
+    padding-top: var(--header-h);
+  }
+
+  .visitGrid {
+    flex: 1;
+    grid-template-rows: auto 1fr;
+  }
+
+  .visitCopy {
+    justify-content: space-between;
+  }
+
+  /* Visit's header clearance already separates it from Book */
+  .book {
+    padding-bottom: 0;
+  }
+}

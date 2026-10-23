@@ -1,0 +1,59 @@
+{
+  "studio-crunch": {
+    "source": "DSCF0503-scaled.jpg",
+    "width": 1707,
+    "height": 2560,
+    "widths": [
+      480,
+      800,
+      1200,
+      1600
+    ]
+  },
+  "studio-lunge": {
+    "source": "DSCF0509.jpg",
+    "width": 2500,
+    "height": 1667,
+    "widths": [
+      480,
+      800,
+      1200,
+      1600,
+      2400
+    ]
+  },
+  "studio-swan": {
+    "source": "DSCF0531.jpg",
+    "width": 2500,
+    "height": 1667,
+    "widths": [
+      480,
+      800,
+      1200,
+      1600,
+      2400
+    ]
+  },
+  "studio-straps": {
+    "source": "DSCF0579-scaled.jpg",
+    "width": 1707,
+    "height": 2560,
+    "widths": [
+      480,
+      800,
+      1200,
+      1600
+    ]
+  },
+  "studio-portrait": {
+    "source": "DSCF0835-scaled.jpg",
+    "width": 1707,
+    "height": 2560,
+    "widths": [
+      480,
+      800,
+      1200,
+      1600
+    ]
+  }
+}

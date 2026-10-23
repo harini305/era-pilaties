@@ -1,0 +1,10 @@
+node_modules/
+.next/
+out/
+*.log
+.env*.local
+
+# Audit reports and screenshots stay local; only the original photos the
+# image script reads are committed.
+docs/source-audit/*
+!docs/source-audit/original-assets/
