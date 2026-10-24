@@ -37,20 +37,18 @@
   margin-top: var(--space-m);
 }
 
-.mediaWide,
-.mediaTall,
+.studioPhoto,
+.stripPhoto,
 .visitMedia,
-.band,
 .heroMedia {
   position: relative;
   overflow: hidden;
   background: var(--cream);
 }
 
-.mediaWide img,
-.mediaTall img,
+.studioPhoto img,
+.stripPhoto img,
 .visitMedia img,
-.band img,
 .heroMedia img {
   position: absolute;
   inset: 0;
@@ -120,47 +118,43 @@
   min-height: 24rem;
 }
 
-/* Studio */
+/* Studio: compact so it fits one screen below the header when reached from the nav.
+   Photo cols 1–3 (stretches to the copy height), copy cols 5–12. */
 .studio {
   padding-block: var(--section);
 }
 
+.studioPhoto {
+  grid-column: 1 / span 3;
+  align-self: stretch;
+  min-height: 22rem;
+}
+
+.studioCopy {
+  grid-column: 5 / -1;
+}
+
 .lead {
-  max-width: 32ch;
-  font-size: var(--fs-lead);
-  line-height: 1.35;
+  max-width: 40ch;
+  margin-top: var(--space-s);
+  font-size: clamp(1.125rem, 0.95rem + 0.6vw, 1.5rem);
+  line-height: 1.4;
   letter-spacing: -0.01em;
 }
 
-/* The portrait sets the row height; the wide photo stretches to match,
-   so both share top and bottom edges. */
-.mediaTall,
-.mediaWide {
-  margin-top: var(--space-l);
-}
-
-.mediaTall {
-  grid-column: 1 / span 4;
-  align-self: start;
-  aspect-ratio: 2 / 3;
-}
-
-.mediaWide {
-  grid-column: 5 / -1;
-  align-self: stretch;
-}
-
 .themes {
-  margin-top: var(--space-l);
+  margin-top: var(--space-m);
   border-bottom: 1px solid var(--line);
 }
 
+/* Theme text starts on page column 8, like the package details. */
 .theme {
   display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-columns: repeat(8, minmax(0, 1fr));
   column-gap: var(--col-gap);
-  row-gap: var(--space-s);
-  padding-block: var(--space-m);
+  row-gap: 0.5rem;
+  align-items: baseline;
+  padding-block: 1rem;
   border-top: 1px solid var(--line);
 }
 
@@ -169,20 +163,26 @@
 }
 
 .theme h3 {
-  grid-column: 1 / span 4;
+  grid-column: 1 / span 3;
 }
 
 .theme p {
-  grid-column: 5 / span 6;
+  grid-column: 4 / -1;
   max-width: 60ch;
   color: var(--muted);
 }
 
-/* Full-bleed band */
-.band {
-  width: 100%;
-  aspect-ratio: 21 / 9;
-  max-height: 88svh;
+/* Photo strip between Studio and Packages: two landscapes, equal size */
+.stripPhoto {
+  aspect-ratio: 3 / 2;
+}
+
+.stripPhoto:first-child {
+  grid-column: 1 / span 6;
+}
+
+.stripPhoto:last-child {
+  grid-column: 7 / -1;
 }
 
 /* Packages */
@@ -206,11 +206,11 @@
 
 .groups {
   display: grid;
-  gap: calc(var(--space-m) * 1.5);
+  gap: var(--space-m);
 }
 
 .groups h3 {
-  padding-bottom: var(--space-s);
+  padding-bottom: 0.5rem;
   border-bottom: 1px solid var(--ink);
 }
 
@@ -220,8 +220,8 @@
   grid-template-columns: repeat(8, minmax(0, 1fr));
   column-gap: var(--col-gap);
   align-items: center;
-  min-height: 4.5rem;
-  padding-block: 0.75rem;
+  min-height: 3.25rem;
+  padding-block: 0.5rem;
   border-bottom: 1px solid var(--line);
 }
 
@@ -266,8 +266,11 @@
   background: var(--cream);
 }
 
+/* Pinned beside the booking panel while it scrolls (static at ≤1100px). */
 .bookHead {
   align-self: start;
+  position: sticky;
+  top: calc(var(--header-h) + var(--space-m));
 }
 
 .bookFrame {
@@ -413,17 +416,11 @@
 
 /* Small desktop / large tablet: stack section heads above content */
 @media (max-width: 1100px) {
-  .studioGrid > .colHead,
-  .studioGrid > .colBody,
   .packagesGrid > .colHead,
   .packagesGrid > .colBody,
   .bookGrid > .colHead,
   .bookGrid > .colBody {
     grid-column: 1 / -1;
-  }
-
-  .studioGrid > .colBody {
-    margin-top: var(--space-m);
   }
 
   .packagesHead,
@@ -455,15 +452,21 @@
     margin-inline: calc(var(--gutter) * -1);
   }
 
-  /* Portrait pair, equal widths and heights */
-  .mediaTall {
-    grid-column: 1 / span 6;
+  .studioPhoto,
+  .studioCopy,
+  .stripPhoto:first-child,
+  .stripPhoto:last-child {
+    grid-column: 1 / -1;
   }
 
-  .mediaWide {
-    grid-column: 7 / -1;
-    align-self: start;
-    aspect-ratio: 2 / 3;
+  .studioPhoto {
+    min-height: 0;
+    aspect-ratio: 4 / 3;
+    margin-bottom: var(--space-m);
+  }
+
+  .strip {
+    row-gap: var(--col-gap);
   }
 
   .bookFrame {
@@ -475,17 +478,9 @@
     height: 700px;
   }
 
-  .mediaWide img {
-    object-position: 42% 50% !important;
-  }
-
   .theme h3,
   .theme p {
     grid-column: 1 / -1;
-  }
-
-  .band {
-    aspect-ratio: 4 / 3;
   }
 
   .visitMedia,
@@ -570,8 +565,35 @@
   }
 }
 
-/* Short desktop screens (e.g. 1366×650 laptops): keep Visit + footer on one screen. */
-@media (min-width: 861px) and (max-height: 760px) {
+/* Short desktop screens (e.g. 1366×650 laptops, 1024×768 tablets): keep every
+   nav target and Visit + footer on one screen. */
+@media (min-width: 861px) and (max-height: 800px) {
+  .studio,
+  .packages {
+    padding-block: var(--space-m);
+  }
+
+  .theme {
+    padding-block: 0.6rem;
+  }
+
+  .groups {
+    gap: var(--space-s);
+  }
+
+  .groups h3 {
+    padding-bottom: 0.35rem;
+  }
+
+  .row {
+    min-height: 0;
+    padding-block: 0.3rem;
+  }
+
+  .book {
+    padding-top: var(--space-m);
+  }
+
   .visit {
     padding-bottom: var(--space-m);
   }
@@ -604,6 +626,9 @@
     flex-direction: column;
     min-height: calc(100svh - var(--footer-h, 13.5rem));
     padding-top: var(--header-h);
+    /* Its own padding already clears the header, so anchor jumps (#visit)
+       land at the section top instead of adding the page's header offset again. */
+    scroll-margin-top: calc(var(--header-h) * -1);
   }
 
   .visitGrid {
@@ -618,5 +643,84 @@
   /* Visit's header clearance already separates it from Book */
   .book {
     padding-bottom: 0;
+  }
+
+  /* Keeps Book on one screen; Momence scrolls inside if its content is taller. */
+  .bookFrame iframe {
+    max-height: calc(100svh - var(--header-h) - 2 * var(--section));
+  }
+}
+
+/* Tablet landscape: section heading and note side by side, so the content keeps
+   the space; the booking panel is capped to the screen (Momence scrolls inside). */
+@media (min-width: 561px) and (max-width: 1100px) {
+  .packagesHead,
+  .bookHead {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 36ch);
+    column-gap: var(--col-gap);
+    align-items: end;
+  }
+
+  .packagesHead h2,
+  .bookHead h2 {
+    grid-row: 1 / span 2;
+  }
+
+  .packagesHead .note,
+  .bookHead .note {
+    grid-column: 2;
+  }
+}
+
+@media (min-width: 861px) and (max-width: 1100px) {
+  .bookFrame iframe {
+    max-height: calc(100svh - var(--header-h) - 2 * var(--section) - 10.5rem);
+  }
+}
+
+/* Phones and tablet portrait: booking panel fits under its heading on one screen. */
+@media (max-width: 860px) {
+  .bookFrame iframe {
+    max-height: calc(100svh - var(--header-h) - 2 * var(--section) - 13rem);
+  }
+}
+
+/*
+  Desktop and tablet: every nav target (Studio, Packages, Book) is exactly one
+  screen tall below the fixed header, so after a nav jump only that section is
+  in view. Sections grow instead of clipping if their content is taller.
+*/
+@media (min-width: 861px) {
+  .studio,
+  .packages,
+  .book {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: calc(100svh - var(--header-h));
+  }
+
+  .book {
+    padding-bottom: var(--section);
+  }
+
+  /* Studio: grid fills the screen; the photo stretches to it, the heading and
+     intro sit at the top and the themes at the bottom. */
+  .studio > :global(.wrap) {
+    flex: 1;
+  }
+
+  .studioCopy {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .studioCopy .lead {
+    margin-bottom: var(--space-m);
+  }
+
+  .studioCopy .themes {
+    margin-top: auto;
   }
 }

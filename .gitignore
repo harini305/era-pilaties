@@ -8,3 +8,6 @@ out/
 # image script reads are committed.
 docs/source-audit/*
 !docs/source-audit/original-assets/
+
+.vercel
+.env*

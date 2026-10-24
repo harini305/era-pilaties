@@ -67,36 +67,39 @@ export default function Home() {
 
         {/* Studio */}
         <section id="studio" className={styles.studio} aria-labelledby="studio-title">
-          <div className={`wrap grid ${styles.studioGrid}`}>
-            <h2 id="studio-title" className={`display ${styles.h2} ${styles.colHead}`} data-reveal>
-              The studio
-            </h2>
-            <p className={`${styles.lead} ${styles.colBody}`} data-reveal>
-              Choose from over 350 expert, instructor-led reformer classes and decide when you train, how you
-              train and what you focus on. It’s a new era.
-            </p>
-
-            <div className={styles.mediaTall} data-reveal-img>
-              <Picture slug="studio-portrait" sizes="(max-width: 860px) 50vw, 30vw" position="50% 30%" />
+          {/* Compact: fits one screen below the header when reached from the nav. */}
+          <div className="wrap grid">
+            <div className={styles.studioPhoto} data-reveal-img>
+              <Picture slug="studio-portrait" sizes="(max-width: 860px) 100vw, 22vw" position="50% 20%" />
             </div>
-            <div className={styles.mediaWide} data-reveal-img>
-              <Picture slug="studio-lunge" sizes="(max-width: 860px) 100vw, 62vw" position="40% 50%" />
+            <div className={styles.studioCopy}>
+              <h2 id="studio-title" className={`display ${styles.h2}`} data-reveal>
+                The studio
+              </h2>
+              <p className={styles.lead} data-reveal>
+                Choose from over 350 expert, instructor-led reformer classes and decide when you train, how you
+                train and what you focus on. It’s a new era.
+              </p>
+              <ul className={styles.themes}>
+                {THEMES.map((theme) => (
+                  <li key={theme.title} className={styles.theme} data-reveal>
+                    <h3 className={`display ${styles.h3}`}>{theme.title}</h3>
+                    <p>{theme.text}</p>
+                  </li>
+                ))}
+              </ul>
             </div>
-
-            <ul className={styles.themes}>
-              {THEMES.map((theme) => (
-                <li key={theme.title} className={styles.theme} data-reveal>
-                  <h3 className={`display ${styles.h3}`}>{theme.title}</h3>
-                  <p>{theme.text}</p>
-                </li>
-              ))}
-            </ul>
           </div>
         </section>
 
-        {/* Full-bleed image */}
-        <div className={styles.band} data-reveal-img>
-          <Picture slug="studio-swan" sizes="100vw" position="45% 45%" />
+        {/* Photo strip between Studio and Packages (not a nav target) */}
+        <div className={`wrap grid ${styles.strip}`}>
+          <div className={styles.stripPhoto} data-reveal-img>
+            <Picture slug="studio-lunge" sizes="(max-width: 860px) 100vw, 50vw" position="42% 50%" />
+          </div>
+          <div className={styles.stripPhoto} data-reveal-img>
+            <Picture slug="studio-swan" sizes="(max-width: 860px) 100vw, 50vw" position="45% 45%" />
+          </div>
         </div>
 
         {/* Packages */}
